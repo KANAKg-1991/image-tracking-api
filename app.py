@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 
@@ -6,11 +6,9 @@ app = Flask(__name__)
 def home():
     return "Flask API is running!"
 
-@app.route('/track_image', methods=['POST'])
-def track_image():
-    data = request.json
-    image_url = data.get('image_url')
-    return jsonify({"message": "Tracking started for " + image_url})
+@app.route('/health')
+def health():
+    return jsonify({"status": "API is working fine!"})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=10000, debug=True)
