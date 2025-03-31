@@ -7,6 +7,10 @@ app = Flask(__name__)
 def home():
     return "Flask API is running!"
 
+@app.route('/health')
+def health():
+    return jsonify({"status": "API is working fine!"})
+
 @app.route('/track_image', methods=['POST'])
 def track_image():
     data = request.json
@@ -14,5 +18,5 @@ def track_image():
     return jsonify({"message": f"Tracking started for {image_url}"})
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))  # Render এ PORT সেট করতে হবে
+    port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port, debug=True)
