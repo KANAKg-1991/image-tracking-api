@@ -7,10 +7,6 @@ app = Flask(__name__)
 def home():
     return "Flask API is running!"
 
-@app.route('/health')
-def health():
-    return jsonify({"status": "API is working fine!"})
-
 @app.route('/track_image', methods=['POST'])
 def track_image():
     data = request.json
