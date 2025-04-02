@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-import os
 
 app = Flask(__name__)
 
@@ -11,8 +10,14 @@ def home():
 def track_image():
     data = request.json
     image_url = data.get('image_url')
-    return jsonify({"message": f"Tracking started for {image_url}"})
+
+    if not image_url:
+        return jsonify({"error": "No image URL provided"}), 400
+
+    # Google Reverse Image Search URL তৈরি করা
+    tracking_link = f"https://www.google.com/searchbyimage?image_url={image_url}"
+
+    return jsonify({"message": "Tracking started", "tracking_url": tracking_link})
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(debug=True)
